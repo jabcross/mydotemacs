@@ -26,74 +26,75 @@
   (scroll-up-line n)
   )
 
+(defun drag-this-up ()
+  (interactive)
+  (if (use-region-p)
+      (let (buff deactivate-mark)
+	(setq buff
+	      (buffer-substring-no-properties
+	       (region-beginning)
+	       (region-end)
+	       )
+	      )
+	(delete-region
+	 (region-beginning)
+	 (region-end)
+	 )
+	(forward-line -1)
+	(push-mark (point))
+	(insert buff)
+	(setq mark-active t)
+	
+	)
+    (list
+     (transpose-lines 1)
+     (forward-line -2)))
+  )
+
+
+(defun drag-this-down ()
+  (interactive)
+  (if (use-region-p)
+      (let (buff deactivate-mark)
+	(setq buff
+	      (buffer-substring-no-properties
+	       (region-beginning)
+	       (region-end)
+	       )
+	      )
+	(delete-region
+	 (region-beginning)
+	 (region-end)
+	 )
+	(forward-line 1)
+	(push-mark (point))
+	(insert buff)
+	(setq mark-active t)
+	
+	)
+    (list
+     (forward-line 1)
+     (transpose-lines 1)
+     (forward-line -1)))
+  )
+
+
+
 (global-set-key [M-up] 'scroll-one-down)
 (global-set-key [M-down] 'scroll-one-up)
-
-
-
-
-(global-set-key [M-s-up] (lambda ()
-			   (interactive)
-			   (if (use-region-p)
-			       (let (buff)
-				 (setq buff
-				       (buffer-substring-no-properties
-					(region-beginning)
-					(region-end)
-					)
-				       )
-				 (delete-region
-				  (region-beginning)
-				  (region-end)
-				  )
-				 (forward-line -1)
-				 (push-mark (point))
-				 (insert buff)				 
-				 (goto-char (+ (point) (length buff)))
-				 (setq mark-active t)
-				 )
-			     (list
-			      (transpose-lines 1)
-			      (forward-line -2)))))
-
-(global-set-key [M-s-down] (lambda ()
-			     (interactive)
-			     (if (use-region-p)
-				 (let (buff p1 p2)
-				   (setq buff
-					 (buffer-substring-no-properties
-					  (region-beginning)
-					  (region-end)
-					  )
-					 )
-				   (delete-region
-				    (region-beginning)
-				    (region-end)
-				    )
-				   (forward-line 1)
-				   (setq p1 (point))
-				   (insert buff)
-				   (setq p2 (+ p1 (length buff)))
-				   (goto-char p1)
-				   (push-mark p2)
-				   (setq mark-active t)
-				   )
-			       ( list
-				 (forward-line 1)
-				 (transpose-lines 1)
-				 (forward-line -1))
-			       )))
+(global-set-key [M-s-up] 'drag-this-up)
+(global-set-key [M-s-down] 'drag-this-down)
 
 (global-set-key [C-return] (lambda ()
 			     (interactive)
-			       (list
-				(move-end-of-line 1)
-				(newline 1)
-				(indent-for-tab-command)
-				)
-			       )
+			     (list
+			      (move-end-of-line 1)
+			      (newline 1)
+			      (indent-for-tab-command)
+			      )
 			     )
-		
+		)
+
 
 
 
