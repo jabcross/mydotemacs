@@ -4,14 +4,13 @@
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
-
 (define-key input-decode-map (kbd "C-i") (kbd "H-i"))
 (define-key input-decode-map (kbd "C-s-i") (kbd "C-<up>"))
+(define-key key-translation-map (kbd "s-l") (kbd "<right>"))
 
 (define-key key-translation-map (kbd "s-i") (kbd "<up>"))
 (define-key key-translation-map (kbd "s-j") (kbd "<left>"))
 (define-key key-translation-map (kbd "s-k") (kbd "<down>"))
-(define-key key-translation-map (kbd "s-l") (kbd "<right>"))
 (define-key key-translation-map (kbd "s-I") (kbd "S-<up>"))
 (define-key key-translation-map (kbd "s-J") (kbd "S-<left>"))
 (define-key key-translation-map (kbd "s-K") (kbd "S-<down>"))
@@ -30,8 +29,10 @@
 (define-key key-translation-map (kbd "C-M-s-l") (kbd "M-s-<right>"))
 (define-key key-translation-map (kbd "s-u") (kbd "DEL"))
 
-
-(global-set-key [M-up] 'scroll-one-down)
+(global-set-key (kbd "s-s") 'scroll-one-up)
+(global-set-key (kbd "s-w") 'scroll-one-down)
+(global-set-key (kbd "s-h") 'move-beginning-of-line)
+(global-set-key (kbd "s-;") 'move-end-of-line)
 (global-set-key [M-up] 'scroll-one-down)
 (global-set-key [M-down] 'scroll-one-up)
 (global-set-key [M-s-up] 'drag-this-up)
@@ -117,7 +118,7 @@
    )
   )
 
-(require 'fill-column-indicator)
+;;(require 'fill-column-indicator)
 
 (setq ring-bell-function 'ignore)
 
