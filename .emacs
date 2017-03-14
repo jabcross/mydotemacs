@@ -1,18 +1,17 @@
 (require 'package)
-(require 'cl-lib)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
 (load-file "~/mydotemacs/uppercut.el")
 
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
 
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'prog-mode-hook 'auto-complete-mode)
-(add-hook 'prog-mode-hook 'global-hl-line-mode)	
+(auto-indent-global-mode)
 
 ;;(require 'fill-column-indicator)
 
