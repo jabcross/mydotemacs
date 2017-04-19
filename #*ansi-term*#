@@ -1,0 +1,86 @@
+pedro@goten:~$ ls
+1.txt_0.ods     emacs_backup           mc723-2017s1  rust        test.py
+cg              examples.desktop       mozilla.pdf   scripts     test.py~
+changelog.txt   Firefox_wallpaper.png  Music         styleguide  tutorial
+changelog.txt~  logtemp.sh             mvp           Templates   untitled_0.ods
+Desktop         logtemp.sh~            mydotemacs    test        VERSION.txt
+Documents       main                   Pictures      #test.c#    Videos
+Downloads       main.rs~               Public        test.c      VirtualBox VMs
+pedro@goten:~$ cd mydotemacs/
+pedro@goten:~/mydotemacs$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   .emacs
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        #.emacs#
+        .#.emacs
+
+no changes added to commit (use "git add" and/or "git commit -a")
+pedro@goten:~/mydotemacs$ git diff
+diff --git a/.emacs b/.emacs
+index ed4faa1..012e23d 100644
+--- a/.emacs
++++ b/.emacs
+@@ -4,6 +4,7 @@
+ (package-initialize)
+ 
+ (load-file "~/mydotemacs/uppercut.el")
++(load-file "~/.emacs.d/google-c-style.el")
+ 
+ (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+ (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+@@ -11,7 +12,8 @@
+ 
+ (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+pedro@goten:~/mydotemacs$ git diff
+pedro@goten:~/mydotemacs$ git diff
+diff --git a/.emacs b/.emacs
+index ed4faa1..b2fdbae 100644
+--- a/.emacs
++++ b/.emacs
+@@ -4,6 +4,7 @@
+ (package-initialize)
+ 
+ (load-file "~/mydotemacs/uppercut.el")
++(load-file "~/.emacs.d/google-c-style.el")
+ 
+ (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+ (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+@@ -11,7 +12,8 @@
+ 
+ (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+ (add-hook 'prog-mode-hook 'auto-complete-mode)
+-(auto-indent-global-mode)
++ 
++(global-subword-mode 1)
+ 
+ ;;(require 'fill-column-indicator)
+ 
+@@ -25,7 +27,10 @@
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+pedro@goten:~/mydotemacs$ git
+git                 git-receive-pack    git-upload-archive  
+gitk                git-shell           git-upload-pack     
+pedro@goten:~/mydotemacs$ git commit -am "Remove autoindent mode (iz buggy), add global-subword-mode"
+[master a0adc6b] Remove autoindent mode (iz buggy), add global-subword-mode
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+pedro@goten:~/mydotemacs$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 597 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local objects.
+To git@github.com:jabcross/mydotemacs.git
+   a5921a1..a0adc6b  master -> master
+pedro@goten:~/mydotemacs$ 
